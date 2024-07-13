@@ -7,9 +7,10 @@ from .views import *
 
 
 urlpatterns = [
-    path('', ListView.as_view(), name='index')
+    path('', ListListingView.as_view(), name='index'),
+    path('<slug:lis_slug>/', ListingDeatilView.as_view(), name='listing'),
+    path("create/", ListingFormView.as_view(), name="create")
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

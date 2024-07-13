@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(null=True, default=None)
 
     def __str__(self) -> str:
         return self.name
@@ -17,6 +18,7 @@ class Listing(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(null=True, default=None)
 
 
     def __str__(self):
