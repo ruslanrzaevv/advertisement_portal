@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for l in listing %}
-        <a href="{% url 'listing' lis_slug=l.slug %}">{{ l.title }}</a>
-    {% endfor %}
-{% endblock content %}
+    <div class="listing-container">
+        <form method="get" action="{% url 'index' %}" class="category-filter">
+            <label for="category">Select a category:</label>
+            <select name="category" id="category">
+                <option value="" selected>All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+        
+        <div class="listings">
+            {% for listing in listings %}
+                <div class="listing">
+                    <a href="{% url 'listing' listing.slug %}">
+                        <h3>{{ listing.title }}</h3>
+                    </a>
+                    <p>{{ listing.description|truncatewords:20 }}</p>
+                    <p><strong>Price:</strong> {{ listing.price }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'create' %}" class="create-listing-button">Create a new listing</a>
+{% endblock %}

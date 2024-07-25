@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <p>Author:  {{ listing.user }}</p>
-    <p>Title:  {{ listing.title }}</p>
-    <p>Price:  {{ listing.price }}</p>
-    <p>Description:  {{ listing.description }}</p>
-    <p>Created at:  {{ listing.created_at }}</p>
-{% endblock content %}
+    <div class="listing-detail">
+        <p>Author: {{ listing.user }}</p>
+        <h2>{{ listing.title }}</h2>
+        <p><strong>Price:</strong> {{ listing.price }}</p>
+        <p>{{ listing.description }}</p>
+        <p><strong>Created at:</strong> {{ listing.created_at }}</p>
+        {% if listing.image %}
+            <img src="{{ listing.image.url }}" alt="{{ listing.title }}">
+        {% else %}
+            {% comment %} <img src="{% static 'media/listings/default.jpg' %}" alt="Default Image"> {% endcomment %}
+        {% endif %}
+        <a href="{% url 'edit' lis_slug=listing.slug %}" class="edit-button">Редактировать</a>
+    </div>
+{% endblock %}
